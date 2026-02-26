@@ -3,6 +3,10 @@
   <p translate="no"><strong>Assistente de Gabinete Judicial com IA Local Integrada</strong></p>
 </div>
 
+<p align="center">
+  <img src="assets/toga_login.png" alt="Tela de Login do TogaMind+ Gabinete" width="800">
+</p>
+
 ---
 
 <p align="center" translate="no">
