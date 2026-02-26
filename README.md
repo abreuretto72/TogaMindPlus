@@ -23,7 +23,7 @@ Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do
 
 ### 2. 🧠 RAG Pessoal (Isolado)
 - Diferente de IAs genéricas, o TogaMind+ cria uma base de dados vetorial (`FAISS`) exclusiva para o *Judge ID* autenticado.
-- As decisões, rascunhos e autos anteriores formam o "**Cérebro do Gabinete**", e a IA aprende a julgar e redigir usando a sua jurisprudência passada e estilo pessoal.
+- As decisões, rascunhos e autos anteriores formam o "**Cérebro do Gabinete**", e a IA aprende a assistir, assessorar e redigir usando a seleção passada e a dinamica e estilo pessoal do magistrado.
 
 ### 3. 💬 Chat Contextual de Precisão
 - Não é um chat livre comum: o Chat Contextual é restrito à leitura daquele processo em específico, evitando alucinações.
