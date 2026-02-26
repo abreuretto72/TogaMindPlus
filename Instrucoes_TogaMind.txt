@@ -1,0 +1,51 @@
+================================================================================
+🏛  GUIA DE INICIALIZACAO - TOGAMIND+ (Gabinete Local)
+================================================================================
+
+Este sistema opera de forma 100% isolada em seu computador. Seus dados, rascunhos 
+e processos nunca saem desta maquina, garantindo sigilo juridico absoluto.
+
+--------------------------------------------------------------------------------
+1. CONFIGURACAO INICIAL (Apenas na primeira vez)
+--------------------------------------------------------------------------------
+Antes de iniciar, voce precisa inserir sua chave de acesso a Inteligencia Artificial:
+
+1. Abra o arquivo '.env' com o Bloco de Notas.
+2. Localize a linha: GEMINI_API_KEY=SUA_CHAVE_AQUI
+3. Substitua SUA_CHAVE_AQUI pela sua chave privada do Google AI Studio.
+4. Salve e feche o arquivo.
+
+--------------------------------------------------------------------------------
+2. COMO INICIAR O SISTEMA
+--------------------------------------------------------------------------------
+Nao e necessario instalar nenhum programa (Python ou Flutter). Tudo o que voce 
+precisa esta nesta pasta:
+
+1. Clique duas vezes no arquivo 'Abrir_TogaMind.bat'.
+2. Uma janela preta (Engine de IA) abrira e sera minimizada automaticamente.
+3. O seu navegador Chrome abrira na interface do TogaMind+.
+4. Faca o login com suas credenciais de magistrado.
+
+--------------------------------------------------------------------------------
+3. ORGANIZACAO DE DADOS (Cofre Local)
+--------------------------------------------------------------------------------
+* Peticoes e Rascunhos: Sao salvos automaticamente na pasta 'storage/rag_vault/[Seu_Usuario]'.
+* Memoria RAG: O sistema aprende com seu estilo de escrita conforme voce usa. 
+  Esses "neuronios" ficam guardados localmente na pasta 'storage/vector_db/'.
+
+--------------------------------------------------------------------------------
+4. MANUTENCAO E SUPORTE
+--------------------------------------------------------------------------------
+* Lentidao: Se o sistema parecer lento apos muitos dias de uso, feche tudo e 
+  execute o arquivo 'Limpar_Sistema.bat'. Isso apagara vetores temporarios (seu
+  rascunhos ficam intocados).
+* Troca de Modelo: Se desejar usar um modelo de IA mais potente (ex: gemini-pro),
+  altere o nome do modelo no arquivo 'config.json'.
+
+================================================================================
+Seguranca: Este software utiliza arquitetura local e nao possui comunicacao com 
+servidores externos de terceiros (Multiverso Digital), exceto para o processamento de 
+linguagem natural via Google Gemini API.
+
+Pagina 1 | (c) 2026 ScanNut Multiverso Digital
+================================================================================
