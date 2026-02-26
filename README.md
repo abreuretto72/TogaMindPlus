@@ -24,6 +24,17 @@ O TogaMind+ foi desenvolvido para ser o aliado definitivo do magistrado na gest�
 - **Fundamentação Vinculada à Prova:** O assistente sugere minutas de decisões e sentenças que já nascem com as citações de folhas (fls.) correspondentes, garantindo que o texto jurídico esteja sempre ancorado na realidade dos autos.
 - **Captura Oficial via Certificação Digital:** Integrado ao seu token, o sistema realiza o download seguro e automático de processos, eliminando o trabalho braçal de busca e organização manual de arquivos.
 
+<p align="center">
+  <img src="assets/toga_analise_pdf.png" alt="Análise de Processos em Lote" width="45%">
+  &nbsp;
+  <img src="assets/toga_import_token.png" alt="Importação via PFX" width="45%">
+</p>
+<p align="center">
+  <img src="assets/toga_rag_chat.png" alt="Motor RAG e Chat com os Autos" width="45%">
+  &nbsp;
+  <img src="assets/toga_minuta_editor.png" alt="Redação de Minuta Judicial" width="45%">
+</p>
+
 ## 🛡️ Segurança Máxima e Soberania Jurisdicional
 - **Processamento 100% Local:** O diferencial absoluto do TogaMind+ é que toda a inteligência e o armazenamento residem exclusivamente no seu computador ou notebook.
 - **Privacidade Blindada:** Seus pensamentos, rascunhos e consultas nunca saem do seu ambiente de trabalho, garantindo conformidade total com o sigilo processual e a ausência de envio de dados para nuvens externas.
