@@ -19,7 +19,7 @@ Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do
 
 ### 1. 🔐 Integração Direta via Token (.pfx)
 - O magistrado pode vincular seu Certificado Digital (E-CPF/E-CNPJ) diretamente ao TogaMind+.
-- Baixa o processo judicial na íntegra dos painéis de Justiça Estadual diretamente para a "Bolha" pessoal local do Magistrado.
+- Baixa o processo judicial na íntegra dos painéis de Justiça Estadual diretamente para o Repositório pessoal local do Magistrado.
 
 ### 2. 🧠 RAG Pessoal (Isolado)
 - Diferente de IAs genéricas, o TogaMind+ cria uma base de dados vetorial (`FAISS`) exclusiva para o *Judge ID* autenticado.
