@@ -5,6 +5,8 @@
 
 <p align="center">
   <img src="assets/toga_login.png" alt="Tela de Login do TogaMind+ Gabinete" width="800">
+  <br><br>
+  <img src="assets/toga_google_login.png" alt="Autenticação Segura via Google" width="400">
 </p>
 
 ---
