@@ -13,7 +13,7 @@
 
 O **<span translate="no">TogaMind+</span>** é um sistema autônomo e isolado projetado para modernizar o fluxo de trabalho de um gabinete de Magistratura. Construído sob o rigoroso **Protocolo 2026**, ele combina a Inteligência Artificial Generativa do Google Gemini com a indexação local de RAG (Retrieval-Augmented Generation) para conversar diretamente com os autos processuais, de forma totalmente privada e criptografada.
 
-Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do Juízo (Drive E:)**, garantindo que processos em segredo de justiça e certificados digitais nunca deixem o ambiente seguro do Tribunal.
+Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do Juíz (notebook ou PC). Sem acesso ao mundo externo**, garantindo que processos em segredo de justiça e certificados digitais nunca deixem o ambiente seguro do Tribunal.
 
 ## ✨ Principais Funcionalidades
 
