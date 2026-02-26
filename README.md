@@ -1,17 +1,24 @@
-# toga_mind_plus
+<div align="center">
+  <h1 translate="no">TogaMind+</h1>
+  <p translate="no"><strong>Assistente de Gabinete Judicial com IA Local Integrada</strong></p>
+</div>
 
-A new Flutter project.
+---
 
-## Getting Started
+<p align="center" translate="no">
+  <i>Nota: O nome <b><span translate="no">TogaMindPlus</span></b> é uma marca registrada da aplicação e não deve ser traduzido pelo navegador.</i>
+</p>
 
-This project is a starting point for a Flutter application.
+## Sobre o Projeto
+O **<span translate="no">TogaMind+</span>** (<span translate="no">TogaMindPlus</span>) é um sistema autônomo e isolado projetado para atuar no gabinete de Magistrados, combinando IA de última geração (LLMs) com integração nativa de Certificados Digitais do Tribunal de Justiça.
 
-A few resources to get you started if this is your first Flutter project:
+### Funcionalidades
+* Análise de Autos (PDFs Judiciais)
+* RAG Pessoal (Isolado no Drive físico do gabinete)
+* Minuta de Decisão Automática baseada em Evidências
+* Exportação Direta de Documento Timbrado
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+<p align="center">
+  &copy; 2026 ScanNut Multiverso Digital
+</p>
