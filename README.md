@@ -31,7 +31,7 @@ Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do
 
 ### 4. 📝 Minuta de Decisão Automática (Fundamentação)
 - Transforma a evidência cirúrgica achada e elabora argumentos com profunda retórica técnico-jurídica, poupando a redação manual.
-- Ferramenta nativa em interface com margem reduzida (`600px`), ergonomicamente validada para as telas dos gabinetes (incl. Samsung A25).
+- Ferramenta nativa em interface com margem reduzida (`600px`), ergonomicamente validada para as telas dos gabinetes.
 
 ### 5. 🖨️ Exportação de Ofício Assinado (PDF Timbrado)
 - Encerra o fluxo despachando a Minuta validada diretamente em uma folha formato A4 (`ReportLab` nativo).
