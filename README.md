@@ -9,33 +9,23 @@
   <i>Nota: O nome <b><span translate="no">TogaMindPlus</span></b> é uma marca registrada da aplicação e não deve ser traduzido pelo navegador.</i>
 </p>
 
-## 🏛️ Sobre o Projeto
+## 🏛️ TogaMind+ Gabinete: A Evolução da Assessoria Jurídica Digital
+O TogaMind+ foi desenvolvido para ser o aliado definitivo do magistrado na gestão do conhecimento processual. Em um cenário de volumes massivos de dados, ele atua como um assessor de inteligência avançada, processando informações complexas para entregar clareza e suporte imediato à decisão.
 
-O **<span translate="no">TogaMind+</span>** é um sistema autônomo e isolado projetado para modernizar o fluxo de trabalho de um gabinete de Magistratura. Construído sob o rigoroso **Protocolo 2026**, ele combina a Inteligência Artificial Generativa do Google Gemini com a indexação local de RAG (Retrieval-Augmented Generation) para conversar diretamente com os autos processuais, de forma totalmente privada e criptografada.
+### A Força da Assessoria Inteligente no seu Dia a Dia
+- **Triagem e Diagnóstico de Autos em Segundos:** Ao inserir o número de um processo, a IA realiza uma varredura completa, entregando um resumo estruturado com o objeto da lide, as últimas movimentações e as pendências urgentes.
+- **RAG (Geração Aumentada por Recuperação) de Alta Precisão:** Interrogue os autos em linguagem natural e receba respostas fundamentadas com a indicação exata da página do PDF onde a prova se encontra.
+- **Fundamentação Vinculada à Prova:** O assistente sugere minutas de decisões e sentenças que já nascem com as citações de folhas (fls.) correspondentes, garantindo que o texto jurídico esteja sempre ancorado na realidade dos autos.
+- **Captura Oficial via Certificação Digital:** Integrado ao seu token, o sistema realiza o download seguro e automático de processos, eliminando o trabalho braçal de busca e organização manual de arquivos.
 
-Diferente de sistemas web em nuvem, o TogaMind+ roda **localmente na máquina do Juíz (notebook ou PC). Sem acesso ao mundo externo**, garantindo que processos em segredo de justiça e certificados digitais nunca deixem o ambiente seguro do Tribunal.
+## 🛡️ Segurança Máxima e Soberania Jurisdicional
+- **Processamento 100% Local:** O diferencial absoluto do TogaMind+ é que toda a inteligência e o armazenamento residem exclusivamente no seu computador ou notebook.
+- **Privacidade Blindada:** Seus pensamentos, rascunhos e consultas nunca saem do seu ambiente de trabalho, garantindo conformidade total com o sigilo processual e a ausência de envio de dados para nuvens externas.
+- **Isolamento de Dados por Gabinete:** O sistema cria ambientes de trabalho independentes e protegidos, impedindo qualquer cruzamento de dados ou acesso não autorizado, mesmo em máquinas compartilhadas.
+- **Gestão de Credenciais em RAM:** Suas senhas de acesso ao tribunal são protegidas e permanecem ativas apenas durante o uso do aplicativo, sendo eliminadas permanentemente ao encerrar a sessão.
 
-## ✨ Principais Funcionalidades
-
-### 1. 🔐 Integração Direta via Token (.pfx)
-- O magistrado pode vincular seu Certificado Digital (E-CPF/E-CNPJ) diretamente ao TogaMind+.
-- Baixa o processo judicial na íntegra dos painéis de Justiça Estadual diretamente para o Repositório pessoal local do Magistrado.
-
-### 2. 🧠 RAG Pessoal (Isolado)
-- Diferente de IAs genéricas, o TogaMind+ cria uma base de dados vetorial (`FAISS`) exclusiva para o *Judge ID* autenticado.
-- As decisões, rascunhos e autos anteriores formam o "**Cérebro do Gabinete**", e a IA aprende a assistir, assessorar e redigir usando a seleção passada e a dinamica e estilo pessoal do magistrado.
-
-### 3. 💬 Chat Contextual de Precisão
-- Não é um chat livre comum: o Chat Contextual é restrito à leitura daquele processo em específico, evitando alucinações.
-- **Citação Direta (Anchor Point):** Toda resposta da Inteligência Artificial sobre o processo contém com exatidão a **Página do Processo Físico (PDF)** onde ela encontrou a evidência.
-
-### 4. 📝 Minuta de Decisão Automática (Fundamentação)
-- Transforma a evidência cirúrgica achada e elabora argumentos com profunda retórica técnico-jurídica, poupando a redação manual.
-- Ferramenta nativa em interface com margem reduzida (`600px`), ergonomicamente validada para as telas dos gabinetes.
-
-### 5. 🖨️ Exportação de Ofício Assinado (PDF Timbrado)
-- Encerra o fluxo despachando a Minuta validada diretamente em uma folha formato A4 (`ReportLab` nativo).
-- O backend em Python injeta o cabeçalho oficial de "Poder Judiciário" ao arquivo físico para inclusão direta no e-SAJ/PJe.
+## 💻 Versatilidade e Performance Profissional
+Projetado para oferecer uma experiência fluida e intuitiva em notebooks e PCs, o TogaMind+ adapta-se à sua estação de trabalho. A interface limpa e ergonômica foi otimizada para longas jornadas de análise, permitindo que a tecnologia trabalhe para você, reduzindo o cansaço visual e maximizando a sua produtividade intelectual.
 
 ## 🛠️ Tecnologias Utilizadas
 
