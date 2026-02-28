@@ -17,7 +17,7 @@ O TogaMind+ foi desenvolvido para ser o aliado definitivo do magistrado na gest�
 - **Triagem e Diagnóstico de Autos em Segundos:** Ao inserir o número de um processo, a IA realiza uma varredura completa, entregando um resumo estruturado com o objeto da lide, as últimas movimentações e as pendências urgentes.
 - **RAG (Geração Aumentada por Recuperação) de Alta Precisão:**
 
-  **O que significa:** O sistema não está apenas "chutando" ou gerando texto com base em um treinamento genérico. Ele funciona como um assistente de pesquisa jurídica incrivelmente rápido e preciso. Ele acessa uma base de conhecimento confiável (os manuais técnicos, laudos periciais, regulamentos da ANFAVEA, etc.) antes de formular a resposta.
+  **O que significa:** O sistema não está apenas "chutando" ou gerando texto com base em um treinamento genérico. Ele funciona como um assistente de pesquisa jurídica incrivelmente rápido e preciso. Ele acessa uma base de conhecimento confiável (os manuais técnicos, laudos periciais, etc.) antes de formular a resposta.
 
   **Por que é importante para um juiz:** Garante que a informação fornecida seja factual e tecnicamente correta. Em um processo judicial, a precisão é fundamental; uma informação errada pode levar a uma decisão injusta. A "Alta Precisão" mitiga o risco de alucinações da IA.
 - **Fundamentação Vinculada à Prova:** O assistente sugere minutas de decisões e sentenças que já nascem com as citações de folhas (fls.) correspondentes, garantindo que o texto jurídico esteja sempre ancorado na realidade dos autos.
