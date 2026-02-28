@@ -3,12 +3,16 @@ import 'package:toga_mind_plus/l10n/app_localizations.dart';
 import 'package:toga_mind_plus/core/toga_colors.dart';
 import 'package:toga_mind_plus/features/draft/presentation/toga_draft_view.dart';
 import 'package:toga_mind_plus/features/analysis/presentation/toga_analysis_view.dart';
+import 'package:toga_mind_plus/features/audiencias/presentation/toga_audiencias_view.dart';
 import 'package:toga_mind_plus/features/import/presentation/toga_token_import_view.dart';
 import 'package:toga_mind_plus/core/models/toga_config_model.dart';
 import 'package:toga_mind_plus/core/services/toga_config_service.dart';
 import 'package:toga_mind_plus/core/services/toga_auth_service.dart';
+import 'package:toga_mind_plus/core/utils/toga_status_backup_widget.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class TogaMainView extends StatefulWidget {
   const TogaMainView({super.key});
@@ -21,6 +25,10 @@ class _TogaMainViewState extends State<TogaMainView> {
   late Future<TogaConfigModel> _configFuture;
   bool _isServerOnline = false;
   Timer? _healthCheckTimer;
+  
+  // Backup State
+  bool _backupSucesso = false;
+  String _ultimaDataBackup = "Recém Iniciado...";
 
   @override
   void didChangeDependencies() {
@@ -31,9 +39,27 @@ class _TogaMainViewState extends State<TogaMainView> {
 
   void _startHealthCheck() {
     _checkServer();
-    _healthCheckTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+    _iniciarRotinaBackup(); // Check and Backup on Startup
+    _healthCheckTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       _checkServer();
     });
+  }
+
+  Future<void> _iniciarRotinaBackup() async {
+    try {
+      final response = await http.get(Uri.parse('http://127.0.0.1:8000/backup')).timeout(const Duration(seconds: 5));
+      if (response.statusCode == 200) {
+        final decoded = jsonDecode(utf8.decode(response.bodyBytes));
+        if (mounted) setState(() {
+          _backupSucesso = true;
+          _ultimaDataBackup = decoded['timestamp'] ?? DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
+        });
+      } else {
+        if (mounted) setState(() => _backupSucesso = false);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _backupSucesso = false);
+    }
   }
 
   Future<void> _checkServer() async {
@@ -230,6 +256,16 @@ class _TogaMainViewState extends State<TogaMainView> {
           },
         ),
         _buildClickableIcon(
+          icon: Icons.event_note,
+          label: "Pauta do Dia",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TogaAudienciasView()),
+            );
+          },
+        ),
+        _buildClickableIcon(
           icon: Icons.delete_outline,
           label: l10n.action_delete,
           onPressed: () {},
@@ -261,14 +297,20 @@ class _TogaMainViewState extends State<TogaMainView> {
   }
 
   Widget _buildTogaFooter(BuildContext context, AppLocalizations l10n) {
-    return Container(
-      height: 50,
-      color: Colors.black,
-      alignment: Alignment.center,
-      child: Text(
-        l10n.footer_copyright,
-        style: const TextStyle(color: Colors.white70, fontSize: 10),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TogaStatusBackupWidget(backupSucesso: _backupSucesso, ultimaData: _ultimaDataBackup),
+        Container(
+          height: 35,
+          color: Colors.black,
+          alignment: Alignment.center,
+          child: Text(
+            l10n.footer_copyright,
+            style: const TextStyle(color: Colors.white70, fontSize: 10),
+          ),
+        ),
+      ],
     );
   }
 }

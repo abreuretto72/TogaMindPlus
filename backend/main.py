@@ -6,8 +6,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Optional, List
 from colorama import init, Fore
+import sqlite3
+
+import time
+from toga_logger_service import log_info, log_warning, registrar_erro_com_trace
 
 # Custom Toga modules (Lazy Loading)
 _rag_manager = None
@@ -106,9 +111,31 @@ if not api_key:
     print(Fore.RED + "ERRO FATAL: GEMINI_API_KEY não encontrada. Fechando.")
     sys.exit(1)
 
-# Inicializações Base
-app = FastAPI(title="TogaMind+ AI Engine")
+# Inicializações# App Setup
+app = FastAPI(title="TogaMind+ Engine", version="2.0")
 
+# -------------------------------------------------------------------
+# SISTEMA DE MONITORAMENTO E TRACES DE AUDITORIA (MIDDLEWARE GLOBAL)
+# -------------------------------------------------------------------
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    
+    # Executa a Rota
+    try:
+        response = await call_next(request)
+        process_time = time.time() - start_time
+        
+        # Registra a latência e o status da rota no Arquivo Oficial
+        log_info(f"ROTA: {request.method} {request.url.path} | STATUS: {response.status_code} | TEMPO: {process_time:.3f}s")
+        response.headers["X-Process-Time"] = str(process_time)
+        return response
+    except Exception as e:
+        process_time = time.time() - start_time
+        registrar_erro_com_trace(e)
+        raise e
+
+# CORS Setup
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -143,6 +170,66 @@ def get_api_endpoint():
     except Exception:
         pass
     return None
+
+# -------------------------------------------------------------------
+# BANCO DE DADOS RELACIONAL (AUDIÊNCIAS E PAUTA DO DIA)
+# -------------------------------------------------------------------
+def get_db_connection():
+    os.makedirs(os.path.join(os.getcwd(), "storage"), exist_ok=True)
+    db_path = os.path.join(os.getcwd(), "storage", "toga_database.db")
+    conn = sqlite3.connect(db_path, check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS audiencias (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_processo TEXT NOT NULL,
+            data_audiencia TEXT,
+            horario TEXT,
+            tipo TEXT,
+            partes TEXT,
+            ponto_controvertido TEXT,
+            status_video BOOLEAN NOT NULL DEFAULT 0,
+            resumo_previa TEXT,
+            lembrete TEXT,
+            caminho_anexo TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Inicializa o DB ao subir a API
+init_db()
+
+class AudienciaPainel(BaseModel):
+    id_processo: str
+    data_audiencia: Optional[str] = None
+    horario: Optional[str] = None
+    tipo: str
+    partes: Optional[dict] = None
+    ponto_controvertido: Optional[str] = None
+    status_video: bool = False
+    resumo_previa: Optional[str] = None
+    lembrete: Optional[str] = None
+    caminho_anexo: Optional[str] = None
+
+class AudienciaResponse(AudienciaPainel):
+    id: int
+
+class AudienciaRequest(BaseModel):
+    processo_id: str
+    caminho_pdf: str
+
+class AtaRequest(BaseModel):
+    processo_id: str
+    partes: str
+    texto_ata: str
+    horario_inicio: str
+    horario_fim: str
 
 import hashlib
 
@@ -255,8 +342,17 @@ async def analyze_process(
         
         headers = {'Content-Type': 'application/json'}
         
-        system_instruction = (
-            PROMPT_MESTRE_BASE +
+        # Preparação do Histórico Vivo do Gabinete (Zero Cloud)
+        from toga_rag_memory import carregar_contexto_historico
+        memoria_resultado = carregar_contexto_historico(judge_id) # Pass judge_id to filter memory
+        historico_contexto = ""
+        usando_historico = False
+        
+        if isinstance(memoria_resultado, dict) and "historico_carregado" in memoria_resultado and memoria_resultado["historico_carregado"] > 0:
+            usando_historico = True
+            historico_contexto = "\n--- HISTÓRICO DE DECISÕES DO GABINETE ---\n" + "\n".join(memoria_resultado["dados"][:3])
+        
+        system_instruction_base = PROMPT_MESTRE_BASE + (
             "\nTAREFA DE ANÁLISE:\n"
             "Analise os documentos fornecidos via RAG e elabore um parecer técnico.\n"
             "OBRIGATÓRIO: Formate toda a sua resposta utilizando MARKDOWN ESTRITO. "
@@ -270,6 +366,18 @@ async def analyze_process(
             "[Citação da Lei ou Jurisprudência aplicável baseada APENAS no contexto]\n\n"
             "Conclusão: [Proposta de encaminhamento ou decisão técnica]"
         )
+
+        # Augment system instruction with historical context if available
+        if usando_historico:
+            system_instruction = (
+                f"Você é o TogaMind+, Assistente Jurídico de Gabinete (Modelo Offline Strict).\n"
+                f"Aja de forma neutra, culta e protocolar.\n\n"
+                f"Abaixo está o texto cru de uma peça jurídica e o histórico de julgamentos desse Juiz:\n"
+                f"{historico_contexto}\n\n"
+                f"{system_instruction_base}"
+            )
+        else:
+            system_instruction = system_instruction_base
         
         payload = {
             "system_instruction": {
@@ -679,6 +787,212 @@ async def import_process(
                 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro de processamento do token: {str(e)}")
+
+# -------------------------------------------------------------------
+# ROTAS CRUD - PAUTA DE AUDIÊNCIAS (PROTOCOLO SCANNUT)
+# -------------------------------------------------------------------
+
+@app.post("/sync-audiencias")
+async def sync_pauta_audiencias(request: Request):
+    judge_id = request.headers.get("judge-id", request.headers.get("judge_id", "anonimo"))
+    
+    # 1. Definir pasta do Juiz no Vault
+    pasta_processos = os.path.join(os.getcwd(), "storage", "rag_vault", judge_id, "processos")
+    
+    if not os.path.exists(pasta_processos):
+        return {"status": "error", "message": "Nenhum processo salvo pelo Gabinete."}
+        
+    try:
+        from toga_audiencia_scanner import TogaAudienciaScanner
+        scanner = TogaAudienciaScanner()
+        active_model = get_active_model()
+        
+        resultado = scanner.varrer_processos(
+            judge_id=judge_id,
+            pasta_processos=pasta_processos,
+            api_key=api_key,
+            active_model=active_model
+        )
+        return resultado
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/audiencia/preparar")
+async def preparar_audiencia(req: AudienciaRequest):
+    try:
+        if not os.path.exists(req.caminho_pdf):
+            raise HTTPException(status_code=404, detail="Arquivo PDF não encontrado no caminho especificado.")
+
+        import google.generativeai as genai
+        genai.configure(api_key=api_key)
+        active_model = get_active_model()
+        model = genai.GenerativeModel(active_model)
+
+        from toga_pdf_reader import TogaPDFReader
+        extracao_bruta = TogaPDFReader.extrair_resumo_peticao(req.caminho_pdf, max_pages=10)
+        
+        texto_base = extracao_bruta.get("resumo_fato", "") + "\n\n" + extracao_bruta.get("objetivo_prova", "")
+        if "erro" in extracao_bruta:
+             texto_base = "Não foi possível realizar a pré-extração Nativa."
+
+        prompt = f"""
+        CONTEXTO DE GABINETE:
+        Analise o processo {req.processo_id} focado no documento inserido.
+        Extraia do texto abaixo os pontos cruciais para a audiência de hoje:
+        1. RESUMO DOS FATOS.
+        2. PONTOS CONTROVERTIDOS (O que precisa de prova).
+        3. SUGESTÕES DE PERGUNTAS (Para o magistrado).
+        
+        TEXTO: {texto_base[:2500]}
+        """
+        
+        response = model.generate_content(prompt)
+        
+        # O RAG preenche automaticamente o DB para otimizar futuras exibições
+        conn = get_db_connection()
+        c = conn.cursor()
+        c.execute('''
+            UPDATE audiencias SET ponto_controvertido = ? WHERE id_processo = ?
+        ''', (response.text, req.processo_id))
+        conn.commit()
+        conn.close()
+        
+        return {
+            "status": "success",
+            "processo": req.processo_id,
+            "analise_ia": response.text,
+            "historico_utilizado": usando_historico
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/gerar-ata-docx")
+async def gerar_ata_docx(req: AtaRequest):
+    try:
+        from docx import Document
+        from docx.shared import Pt
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        import datetime
+
+        # 1. Configurar Pasta de Destino (Relatórios do Gabinete na Área de Trabalho ou Pasta Raiz)
+        pasta_atas = os.path.expanduser("~/Desktop/Relatorios_Assistente")
+        os.makedirs(pasta_atas, exist_ok=True)
+        
+        # 2. Construir Documento Vazio (Padrão Judiciário Básico)
+        doc = Document()
+        
+        # Cabeçalho
+        h1 = doc.add_heading(f'TERMO DE AUDIÊNCIA - PROCESSO {req.processo_id}', 1)
+        h1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        
+        # Metadados
+        doc.add_paragraph(f"Partes: {req.partes}", style='Normal')
+        doc.add_paragraph(f"Data Base: {datetime.datetime.now().strftime('%d/%m/%Y')} | Início: {req.horario_inicio} - Término: {req.horario_fim}", style='Normal')
+        
+        doc.add_paragraph("-" * 80)
+        
+        # Corpo da Ata
+        doc.add_heading('OCORRÊNCIAS / CELEBRAÇÃO', level=2)
+        p = doc.add_paragraph(req.texto_ata)
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        
+        # Inserção do Rodapé Padrão
+        try:
+            section = doc.sections[0]
+            footer = section.footer
+            footer.paragraphs[0].text = "© 2026 TogaMind+ | Gabinete Digital Local"
+        except Exception:
+            pass # Prevenção de quebra de docx layout
+        
+        # 3. Salvar Fisicamente (Módulo Pós-Audiência)
+        # O arquivo nasce direto na pasta de assinatura.
+        pasta_assinatura = os.path.join(pasta_atas, "Para_Assinar")
+        os.makedirs(pasta_assinatura, exist_ok=True)
+        
+        nome_arquivo = f"Ata_Finalizada_{req.processo_id.replace('.', '_').replace('-', '_')}.docx"
+        caminho_final = os.path.join(pasta_assinatura, nome_arquivo)
+        
+        doc.save(caminho_final)
+        
+        # 4. Feedback Local: Remove Audiência da Pauta ativa
+        conn = get_db_connection()
+        c = conn.cursor()
+        c.execute('DELETE FROM audiencias WHERE id_processo = ?', (req.processo_id,))
+        conn.commit()
+        conn.close()
+
+        return {
+            "status": "success",
+            "mensagem": "Ata gerada e salva com sucesso.",
+            "caminho_salvo": caminho_final
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/backup")
+async def realizar_backup_seguranca():
+    try:
+        from toga_backup_service import executar_backup_gabinete
+        resultado = executar_backup_gabinete()
+        if "trace" in resultado:
+             raise Exception(resultado["message"])
+        return resultado
+    except Exception as e:
+         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/audiencias", response_model=List[AudienciaResponse])
+async def listar_audiencias():
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("SELECT * FROM audiencias ORDER BY horario ASC")
+    rows = c.fetchall()
+    conn.close()
+    
+    resultados = []
+    for r in rows:
+        d = dict(r)
+        if d.get("partes"):
+            try:
+                d["partes"] = json.loads(d["partes"])
+            except Exception:
+                d["partes"] = {}
+        resultados.append(d)
+        
+    return resultados
+
+@app.post("/audiencias", response_model=AudienciaResponse)
+async def criar_audiencia(audiencia: AudienciaPainel):
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    partes_str = json.dumps(audiencia.partes) if audiencia.partes else "{}"
+    
+    c.execute('''
+        INSERT INTO audiencias (id_processo, data_audiencia, horario, tipo, partes, ponto_controvertido, status_video, resumo_previa, lembrete, caminho_anexo)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        audiencia.id_processo, audiencia.data_audiencia, audiencia.horario, audiencia.tipo,
+        partes_str, audiencia.ponto_controvertido,
+        int(audiencia.status_video), audiencia.resumo_previa, audiencia.lembrete, audiencia.caminho_anexo
+    ))
+    conn.commit()
+    novo_id = c.lastrowid
+    conn.close()
+    
+    return {**audiencia.dict(), "id": novo_id}
+
+@app.delete("/audiencias/{audiencia_id}")
+async def deletar_audiencia(audiencia_id: int):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("DELETE FROM audiencias WHERE id = ?", (audiencia_id,))
+    conn.commit()
+    if c.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Audiência não encontrada.")
+    conn.close()
+    return {"status": "success", "message": "Audiência deletada do sistema."}
 
 async def gerar_resumo_imediato(pdf_path: str) -> str:
     prompt = """

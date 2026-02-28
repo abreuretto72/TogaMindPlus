@@ -132,4 +132,25 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get action_export_pdf => 'GERAR PDF PARA ASSINATURA';
+
+  @override
+  String get pautaTitulo => 'Pauta de Audiências';
+
+  @override
+  String get statusSucesso => 'Concluído com Sucesso';
+
+  @override
+  String get statusErro => 'Falha no Processamento';
+
+  @override
+  String get btnSalvarAta => 'Salvar Termo de Audiência';
+
+  @override
+  String get msgBackupLocal => 'Backup realizado no Desktop';
+
+  @override
+  String get labelProcesso => 'Processo nº';
+
+  @override
+  String get hintPerguntaRAG => 'Pergunte ao gabinete...';
 }

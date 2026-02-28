@@ -40,5 +40,12 @@
   "action_copy_saj": "COPIAR PARA O SAJ",
   "label_minuta_editor": "Minuta de Fundamentação",
   "msg_copied": "Copiado para a área de transferência!",
-  "action_export_pdf": "GERAR PDF PARA ASSINATURA"
+  "action_export_pdf": "GERAR PDF PARA ASSINATURA",
+  "pautaTitulo": "Pauta de Audiências",
+  "statusSucesso": "Concluído com Sucesso",
+  "statusErro": "Falha no Processamento",
+  "btnSalvarAta": "Salvar Termo de Audiência",
+  "msgBackupLocal": "Backup realizado no Desktop",
+  "labelProcesso": "Processo nº",
+  "hintPerguntaRAG": "Pergunte ao gabinete..."
 }

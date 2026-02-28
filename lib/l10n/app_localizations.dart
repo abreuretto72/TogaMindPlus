@@ -339,6 +339,48 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'GERAR PDF PARA ASSINATURA'**
   String get action_export_pdf;
+
+  /// No description provided for @pautaTitulo.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pauta de Audiências'**
+  String get pautaTitulo;
+
+  /// No description provided for @statusSucesso.
+  ///
+  /// In pt, this message translates to:
+  /// **'Concluído com Sucesso'**
+  String get statusSucesso;
+
+  /// No description provided for @statusErro.
+  ///
+  /// In pt, this message translates to:
+  /// **'Falha no Processamento'**
+  String get statusErro;
+
+  /// No description provided for @btnSalvarAta.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar Termo de Audiência'**
+  String get btnSalvarAta;
+
+  /// No description provided for @msgBackupLocal.
+  ///
+  /// In pt, this message translates to:
+  /// **'Backup realizado no Desktop'**
+  String get msgBackupLocal;
+
+  /// No description provided for @labelProcesso.
+  ///
+  /// In pt, this message translates to:
+  /// **'Processo nº'**
+  String get labelProcesso;
+
+  /// No description provided for @hintPerguntaRAG.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pergunte ao gabinete...'**
+  String get hintPerguntaRAG;
 }
 
 class _AppLocalizationsDelegate

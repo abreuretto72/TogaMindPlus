@@ -1,0 +1,159 @@
+Analyzing toga_mind_plus...                                     
+
+warning - 'implicit_dynamic_parameter' isn't a recognized diagnostic code - analysis_options.yaml:15:5 - unrecognized_error_code
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:12:28 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:14:35 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:20:21 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:20:37 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:24:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:24:35 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:25:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:25:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:28:23 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:28:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:31:17 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:31:34 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:31:45 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:34:17 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:34:35 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:34:64 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:37:23 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:37:45 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:38:15 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:38:33 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:38:44 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:44:21 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:44:34 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:48:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:48:35 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:49:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:49:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:52:23 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:52:45 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:56:17 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:56:34 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:56:45 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:59:17 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:59:35 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:59:64 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:62:23 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:62:42 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:63:15 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:63:33 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\services\toga_auth_service.dart:63:44 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\utils\toga_error_trace_widget.dart:19:15 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\core\utils\toga_error_trace_widget.dart:23:24 - prefer_single_quotes
+   info - Use interpolation to compose strings and values - lib\core\utils\toga_status_backup_widget.dart:28:13 - prefer_interpolation_to_compose_strings
+   info - Unnecessary use of double quotes - lib\core\utils\toga_status_backup_widget.dart:28:35 - prefer_single_quotes
+warning - The value of the field '_ragUrl' isn't used - lib\features\analysis\services\toga_analysis_service.dart:10:23 - unused_field
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:78:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:78:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:79:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:82:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:102:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:102:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:103:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:105:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\analysis\services\toga_analysis_service.dart:188:27 - prefer_single_quotes
+  error - Target of URI doesn't exist: '../../data/models/audiencia_painel_model.dart' - lib\features\audiencias\presentation\toga_ata_editor_view.dart:2:8 - uri_does_not_exist
+  error - Undefined class 'AudienciaPainel' - lib\features\audiencias\presentation\toga_ata_editor_view.dart:13:9 - undefined_class
+   info - Parameter 'key' could be a super parameter - lib\features\audiencias\presentation\toga_ata_editor_view.dart:15:9 - use_super_parameters
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:25:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:34:9 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:35:9 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:36:9 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:37:9 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:41:50 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:45:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:82:41 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:85:39 - prefer_single_quotes
+  error - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\audiencias\presentation\toga_ata_editor_view.dart:135:74 - deprecated_member_use
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:145:26 - prefer_single_quotes
+   info - Use 'const' with the constructor to improve performance - lib\features\audiencias\presentation\toga_ata_editor_view.dart:153:18 - prefer_const_constructors
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:155:26 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:166:58 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:189:22 - prefer_single_quotes
+  error - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\audiencias\presentation\toga_ata_editor_view.dart:200:51 - deprecated_member_use
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:212:31 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:224:51 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:225:70 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_ata_editor_view.dart:231:53 - prefer_single_quotes
+  error - Undefined name 'l10n' - lib\features\audiencias\presentation\toga_ata_editor_view.dart:243:49 - undefined_identifier
+  error - Undefined name 'l10n' - lib\features\audiencias\presentation\toga_ata_editor_view.dart:243:70 - undefined_identifier
+  error - The getter 'primary' isn't defined for the type 'TogaColors' - lib\features\audiencias\presentation\toga_ata_editor_view.dart:245:47 - undefined_getter
+   info - Parameter 'key' could be a super parameter - lib\features\audiencias\presentation\toga_audiencias_view.dart:9:9 - use_super_parameters
+  error - The getter 'primary' isn't defined for the type 'TogaColors' - lib\features\audiencias\presentation\toga_audiencias_view.dart:90:77 - undefined_getter
+   info - Unnecessary use of 'toList' in a spread - lib\features\audiencias\presentation\toga_audiencias_view.dart:119:86 - unnecessary_to_list_in_spreads
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_pos_audiencia_view.dart:22:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_pos_audiencia_view.dart:36:34 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_pos_audiencia_view.dart:43:28 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\toga_pos_audiencia_view.dart:50:39 - prefer_single_quotes
+  error - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\audiencias\presentation\widgets\toga_audiencia_card.dart:43:52 - deprecated_member_use
+  error - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\audiencias\presentation\widgets\toga_audiencia_card.dart:78:69 - deprecated_member_use
+  error - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\audiencias\presentation\widgets\toga_audiencia_card.dart:122:60 - deprecated_member_use
+   info - Unnecessary use of double quotes - lib\features\audiencias\presentation\widgets\toga_memoria_gabinete_widget.dart:26:15 - prefer_single_quotes
+warning - Unused import: 'package:toga_mind_plus/core/services/toga_config_service.dart' - lib\features\audiencias\services\toga_audiencias_service.dart:4:8 - unused_import
+   info - Unnecessary use of double quotes - lib\features\audiencias\services\toga_audiencias_service.dart:39:25 - prefer_single_quotes
+   info - Don't invoke 'print' in production code - lib\features\audiencias\services\toga_audiencias_service.dart:42:7 - avoid_print
+   info - Unnecessary use of double quotes - lib\features\audiencias\services\toga_audiencias_service.dart:42:13 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:39:77 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:62:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:71:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:78:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:88:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_login_view.dart:113:38 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:28:25 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:43:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:54:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:67:27 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:83:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:92:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:99:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:109:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:119:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\auth\presentation\toga_register_view.dart:144:38 - prefer_single_quotes
+   info - Use 'const' with the constructor to improve performance - lib\features\chat\presentation\toga_contextual_chat_view.dart:211:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\chat\presentation\toga_contextual_chat_view.dart:221:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\chat\presentation\toga_contextual_chat_view.dart:222:24 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\chat\presentation\toga_contextual_chat_view.dart:223:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\chat\presentation\toga_contextual_chat_view.dart:224:31 - prefer_const_constructors
+warning - Unused import: 'package:toga_mind_plus/core/toga_colors.dart' - lib\features\chat\presentation\toga_pdf_viewer.dart:3:8 - unused_import
+   info - Unnecessary use of double quotes - lib\features\chat\presentation\toga_pdf_viewer.dart:100:46 - prefer_single_quotes
+   info - Use interpolation to compose strings and values - lib\features\chat\presentation\toga_pdf_viewer.dart:151:30 - prefer_interpolation_to_compose_strings
+   info - Use interpolation to compose strings and values - lib\features\chat\presentation\toga_pdf_viewer.dart:153:30 - prefer_interpolation_to_compose_strings
+   info - Unnecessary use of double quotes - lib\features\dashboard\presentation\toga_main_view.dart:31:30 - prefer_single_quotes
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\presentation\toga_main_view.dart:53:22 - curly_braces_in_flow_control_structures
+   info - Use 'const' with the constructor to improve performance - lib\features\dashboard\presentation\toga_main_view.dart:98:18 - prefer_const_constructors
+   info - Unnecessary use of double quotes - lib\features\dashboard\presentation\toga_main_view.dart:156:41 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\dashboard\presentation\toga_main_view.dart:156:51 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\dashboard\presentation\toga_main_view.dart:260:18 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:25:28 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:36:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:38:32 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:87:41 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:102:19 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\draft\presentation\toga_chat_widget.dart:109:25 - prefer_single_quotes
+warning - Unused import: 'dart:typed_data' - lib\features\import\presentation\toga_token_import_view.dart:1:8 - unused_import
+warning - The value of the field '_selectedPfx' isn't used - lib\features\import\presentation\toga_token_import_view.dart:27:17 - unused_field
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:75:40 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:80:40 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:96:38 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:101:38 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:109:38 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:132:50 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:139:48 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:149:25 - prefer_single_quotes
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\features\import\presentation\toga_token_import_view.dart:177:61 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\features\import\presentation\toga_token_import_view.dart:191:61 - use_build_context_synchronously
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:241:31 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:287:13 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:293:13 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:306:30 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:321:13 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:327:13 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:338:33 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:353:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:359:11 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:367:24 - prefer_single_quotes
+   info - Unnecessary use of double quotes - lib\features\import\presentation\toga_token_import_view.dart:394:30 - prefer_single_quotes
+

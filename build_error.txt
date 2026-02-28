@@ -1,0 +1,11 @@
+Building Windows application...                                 
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(2,8): error GBB7C8005: Error when reading 'lib/features/data/models/audiencia_painel_model.dart': O sistema n├úo pode encontrar o caminho especificado [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(13,9): error G7D2AEF3C: Type 'AudienciaPainel' not found. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_audiencias_view.dart(90,77): error G9EFD8EEC: Member not found: 'primary'. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(13,9): error GED8576B6: 'AudienciaPainel' isn't a type. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(245,47): error G9EFD8EEC: Member not found: 'primary'. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(243,49): error GD65BB2B6: The getter 'l10n' isn't defined for the type '_TogaAtaEditorViewState'. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+lib/features/audiencias/presentation/toga_ata_editor_view.dart(243,70): error GD65BB2B6: The getter 'l10n' isn't defined for the type '_TogaAtaEditorViewState'. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): error MSB8066: o build personalizado para 'E:\antigravity_projetos\toga_mind_plus\build\windows\x64\CMakeFiles\6af17fe48a046382fcf0ede702ab87b0\flutter_windows.dll.rule;E:\antigravity_projetos\toga_mind_plus\build\windows\x64\CMakeFiles\7fe4259d58777ea05ea833c747999060\flutter_assemble.rule' foi encerrado com o c´┐¢digo 1. [E:\antigravity_projetos\toga_mind_plus\build\windows\x64\flutter\flutter_assemble.vcxproj]
+Building Windows application...                                    20,9s
+Build process failed.
