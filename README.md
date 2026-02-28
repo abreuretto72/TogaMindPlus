@@ -80,5 +80,5 @@ E:\
 
 ---
 <p align="center">
-  &copy; 2026 ScanNut Multiverso Digital
+  &copy; 2026 TogaMind+ Multiverso Digital
 </p>
