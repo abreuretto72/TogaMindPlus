@@ -7,6 +7,8 @@ import 'package:toga_mind_plus/features/import/presentation/toga_token_import_vi
 import 'package:toga_mind_plus/core/models/toga_config_model.dart';
 import 'package:toga_mind_plus/core/services/toga_config_service.dart';
 import 'package:toga_mind_plus/core/services/toga_auth_service.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
 
 class TogaMainView extends StatefulWidget {
   const TogaMainView({super.key});
@@ -17,12 +19,46 @@ class TogaMainView extends StatefulWidget {
 
 class _TogaMainViewState extends State<TogaMainView> {
   late Future<TogaConfigModel> _configFuture;
+  bool _isServerOnline = false;
+  Timer? _healthCheckTimer;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Start fetching config safely with l10n context
     _configFuture = TogaConfigService.fetchConfig(l10n: AppLocalizations.of(context));
+    _startHealthCheck();
+  }
+
+  void _startHealthCheck() {
+    _checkServer();
+    _healthCheckTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      _checkServer();
+    });
+  }
+
+  Future<void> _checkServer() async {
+    try {
+      final response = await http.get(Uri.parse('http://127.0.0.1:8000/config.json')).timeout(const Duration(seconds: 2));
+      if (response.statusCode == 200) {
+        if (!_isServerOnline && mounted) {
+           setState(() => _isServerOnline = true);
+        }
+      } else {
+        if (_isServerOnline && mounted) {
+           setState(() => _isServerOnline = false);
+        }
+      }
+    } catch (_) {
+      if (_isServerOnline && mounted) {
+         setState(() => _isServerOnline = false);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _healthCheckTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -69,6 +105,38 @@ class _TogaMainViewState extends State<TogaMainView> {
             backgroundColor: TogaColors.azulPetroleo,
             foregroundColor: Colors.white,
             actions: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                  color: _isServerOnline ? Colors.green.withValues(alpha: 0.2) : Colors.red.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: _isServerOnline ? Colors.green : Colors.red,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: _isServerOnline ? Colors.green : Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _isServerOnline ? "Ativo" : "Offline",
+                      style: TextStyle(
+                        color: _isServerOnline ? Colors.green : Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               TextButton.icon(
                 icon: const Icon(Icons.logout, color: Color(0xFFFC2D7C)),
                 label: Text(l10n.action_logout, style: const TextStyle(color: Color(0xFFFC2D7C))),

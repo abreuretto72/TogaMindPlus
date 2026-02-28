@@ -53,7 +53,8 @@ class TogaAnalysisService {
       _handleUnauthorized(response.statusCode);
 
       if (response.statusCode == 200) {
-        return utf8.decode(response.bodyBytes);
+        final Map<String, dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
+        return data['analysis'] as String?;
       }
       return null;
     } catch (e) {

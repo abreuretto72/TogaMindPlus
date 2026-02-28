@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:toga_mind_plus/l10n/app_localizations.dart';
 import 'package:toga_mind_plus/core/toga_colors.dart';
 import 'package:toga_mind_plus/core/services/toga_auth_service.dart';
+import 'package:toga_mind_plus/core/utils/toga_anonymizer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class TogaContextualChatView extends StatefulWidget {
   const TogaContextualChatView({super.key});
@@ -62,6 +64,8 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
       final String? judgeId = await TogaAuthService.getActiveJudgeId();
       if (judgeId == null) throw Exception('401_UNAUTHORIZED');
 
+      final anonResult = TogaAnonymizer.anonymizeWithMap(text);
+
       final response = await http.post(
         Uri.parse('http://127.0.0.1:8000/chat-contextual'),
         headers: {
@@ -69,7 +73,7 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
           'judge_id': judgeId,
         },
         body: jsonEncode({
-          'query': text,
+          'query': anonResult.anonymizedText,
           'processo_numero': _processoNumero,
         }),
       );
@@ -81,10 +85,13 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(utf8.decode(response.bodyBytes));
+        // Reverte as tags da IA para o texto original usando o mapeamento
+        final respostaRevertida = TogaAnonymizer.deanonymize(data['resposta'], anonResult.mapping);
+        
         setState(() {
           _messages.add({
             'sender': 'ai', 
-            'text': data['resposta'],
+            'text': respostaRevertida,
             'pagina': data['pagina'] ?? -1,
             'arquivo': data['arquivo'] ?? '',
           });
@@ -105,6 +112,17 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
       });
       _scrollToBottom();
     }
+  }
+
+  String _sanitizeForUI(String text) {
+    return text.trim().replaceAll('```markdown', '').replaceAll('```', '');
+  }
+
+  String _sanitizeForPDF(String text) {
+    return text
+        .replaceAll(RegExp(r'```[a-z]*'), '')
+        .replaceAll('```', '')
+        .trim();
   }
 
   void _scrollToBottom() {
@@ -146,7 +164,10 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
                   final text = msg['text'] as String;
                   final pagina = msg['pagina'] as int;
                   final arquivo = msg['arquivo'] as String;
-                  return _buildMessageBubble(text, isUser, pagina, arquivo);
+                  
+                  final cleanText = isUser ? text : _sanitizeForUI(text);
+                  
+                  return _buildMessageBubble(cleanText, isUser, pagina, arquivo, text); // Passando raw_text pro _gerarMinuta 
                 },
               ),
             ),
@@ -157,7 +178,7 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
     );
   }
 
-  Widget _buildMessageBubble(String text, bool isUser, int pagina, String arquivo) {
+  Widget _buildMessageBubble(String displayString, bool isUser, int pagina, String arquivo, String rawText) {
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -184,21 +205,32 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              text,
-              style: TextStyle(
-                color: isUser ? Colors.black87 : TogaColors.azulPetroleo,
-                fontSize: 15,
-                height: 1.4,
-              ),
-            ),
+            isUser 
+             ? Text(
+                 displayString,
+                 style: TextStyle(
+                   color: Colors.black87,
+                   fontSize: 15,
+                   height: 1.4,
+                 ),
+               )
+             : MarkdownBody(
+                 data: displayString,
+                 selectable: true,
+                 styleSheet: MarkdownStyleSheet(
+                   p: TextStyle(color: TogaColors.azulPetroleo, fontSize: 15, height: 1.4),
+                   h3: TextStyle(color: TogaColors.azulPetroleo, fontSize: 16, fontWeight: FontWeight.bold),
+                   strong: TextStyle(color: TogaColors.azulPetroleo, fontWeight: FontWeight.bold),
+                   tableBody: TextStyle(color: TogaColors.azulPetroleo, fontSize: 14),
+                 ),
+               ),
             if (!isUser) ...[
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
                 children: [
                   if (pagina > 0 && arquivo.isNotEmpty) _buildBotaoCitacao(pagina, arquivo),
-                  _buildBotaoMinuta(text),
+                  _buildBotaoMinuta(rawText),
                 ],
               ),
             ]
@@ -242,6 +274,8 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
       final String? judgeId = await TogaAuthService.getActiveJudgeId();
       if (judgeId == null) throw Exception('401_UNAUTHORIZED');
 
+      final anonResult = TogaAnonymizer.anonymizeWithMap(_sanitizeForPDF(pontoDecisao));
+
       final response = await http.post(
         Uri.parse('http://127.0.0.1:8000/gerar-minuta'),
         headers: {
@@ -249,7 +283,7 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
           'judge_id': judgeId,
         },
         body: jsonEncode({
-          'ponto_decisao': pontoDecisao,
+          'ponto_decisao': anonResult.anonymizedText,
           'processo_numero': _processoNumero,
         }),
       );
@@ -258,7 +292,9 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(utf8.decode(response.bodyBytes));
-        if (mounted) _mostrarEditorMinuta(data['minuta']);
+        // Reverte as tags da IA para o texto original no gerador de minuta
+        final minutaRevertida = TogaAnonymizer.deanonymize(data['minuta'], anonResult.mapping);
+        if (mounted) _mostrarEditorMinuta(minutaRevertida);
       } else {
         if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.error_rag ?? 'Erro.')));
       }
@@ -286,9 +322,6 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
     final TextEditingController minutaController = TextEditingController(text: textoGerado);
     final l10n = AppLocalizations.of(context)!;
     
-    // Internal state for the build function
-    bool isExporting = false;
-    
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
       padding: const EdgeInsets.all(24),
@@ -311,77 +344,40 @@ class _TogaContextualChatViewState extends State<TogaContextualChatView> {
             ),
           ),
           const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                StatefulBuilder(
-                  builder: (context, setState) {
-                    return ElevatedButton.icon(
-                      onPressed: isExporting ? null : () async {
-                        setState(() => isExporting = true);
-                        try {
-                          final String? judgeId = await TogaAuthService.getActiveJudgeId();
-                          if (judgeId == null) throw Exception('401_UNAUTHORIZED');
-
-                          final response = await http.post(
-                            Uri.parse('http://127.0.0.1:8000/exportar-pdf-decisao'),
-                            headers: {
-                              'Content-Type': 'application/json',
-                              'judge_id': judgeId,
-                            },
-                            body: jsonEncode({
-                              'conteudo': minutaController.text,
-                              'processo_numero': _processoNumero,
-                            }),
-                          );
-
-                          if (response.statusCode == 200) {
-                            final data = jsonDecode(utf8.decode(response.bodyBytes));
-                            
-                            if (mounted) {
-                              Navigator.pop(context); // Close modal
-                              Navigator.pushNamed(context, '/pdf_viewer', arguments: {
-                                'path': data['file_url'],
-                                'page': 1,
-                              });
-                            }
-                          } else {
-                            if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.error_rag ?? 'Erro.')));
-                          }
-                        } catch (e) {
-                          if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.error_rag ?? 'Erro.')));
-                        } finally {
-                          if (mounted) setState(() => isExporting = false);
-                        }
-                      },
-                      icon: isExporting 
-                        ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)) 
-                        : const Icon(Icons.picture_as_pdf),
-                      label: Text(l10n.action_export_pdf),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF9800), // Laranja Food/Action
-                        foregroundColor: Colors.white,
-                      ),
-                    );
-                  }
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/pdf_viewer', arguments: {
+                    'conteudo': minutaController.text,
+                  });
+                },
+                icon: const Icon(Icons.picture_as_pdf),
+                label: Text(l10n.action_export_pdf),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF9800),
+                  foregroundColor: Colors.white,
                 ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: minutaController.text));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.msg_copied), backgroundColor: Colors.green),
-                    );
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.copy),
-                  label: Text(l10n.action_copy_saj),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: TogaColors.azulPetroleo,
-                    foregroundColor: Colors.white,
-                  ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: minutaController.text));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.msg_copied), backgroundColor: Colors.green),
+                  );
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.copy),
+                label: Text(l10n.action_copy_saj),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: TogaColors.azulPetroleo,
+                  foregroundColor: Colors.white,
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
         ],
       ),
     );

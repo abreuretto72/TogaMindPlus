@@ -54,3 +54,19 @@ backend/build/
 backend/dist/
 backend/__pycache__/
 storage/
+TogaMindPlus_Instalador_Definitivo.zip
+TogaMindPlus_Completo/
+_internal/
+dist/
+TogaMindPlus_Standalone.zip
+
+# Artefatos Pesados e de Distribuição
+*.exe
+*.zip
+*.dll
+*.msix
+*.dat
+*.so
+*.Z
+Instalador_Portatil/
+Release/

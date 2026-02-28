@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:toga_mind_plus/l10n/app_localizations.dart';
 import 'package:toga_mind_plus/core/toga_colors.dart';
 import 'package:toga_mind_plus/features/analysis/services/toga_analysis_service.dart';
@@ -117,9 +118,17 @@ class _TogaAnalysisViewState extends State<TogaAnalysisView> {
             style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFC2D7C)),
           ),
           const SizedBox(height: 12),
-          Text(
-            _analysisResult!,
-            style: const TextStyle(fontSize: 15, height: 1.5),
+          MarkdownBody(
+            data: _analysisResult!,
+            selectable: true,
+            styleSheet: MarkdownStyleSheet(
+              p: const TextStyle(fontSize: 15, height: 1.5, color: Colors.black87),
+              strong: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+              h1: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+              h2: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+              h3: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+              listBullet: const TextStyle(color: Color(0xFF005B70)),
+            ),
           ),
         ],
       ),

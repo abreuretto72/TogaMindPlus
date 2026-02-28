@@ -34,13 +34,13 @@ class _TogaRegisterViewState extends State<TogaRegisterView> {
 
     setState(() => _isLoading = true);
     
-    final bool success = await TogaAuthService.registerLocal(user, pass);
+    final Map<String, dynamic> result = await TogaAuthService.registerLocal(user, pass);
     
-    if (success) {
+    if (result['success'] == true) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Gabinete local criado com sucesso! Faça login."),
+          SnackBar(
+            content: Text(result['message'] ?? "Gabinete local criado com sucesso! Faça login."),
             backgroundColor: Colors.green,
           ),
         );
@@ -50,9 +50,9 @@ class _TogaRegisterViewState extends State<TogaRegisterView> {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Falha ao registrar. Magistrado já existe?"),
-            backgroundColor: Color(0xFFFC2D7C),
+          SnackBar(
+            content: Text(result['message'] ?? "Falha ao registrar."),
+            backgroundColor: const Color(0xFFFC2D7C),
           ),
         );
       }

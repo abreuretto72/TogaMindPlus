@@ -24,9 +24,9 @@ class _TogaLoginViewState extends State<TogaLoginView> {
     setState(() => _isLoading = true);
     
     // Autenticação Real Local através do Backend Python
-    final bool success = await TogaAuthService.loginLocal(user, pass);
+    final Map<String, dynamic> result = await TogaAuthService.loginLocal(user, pass);
     
-    if (success) {
+    if (result['success'] == true) {
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/home');
       }
@@ -36,7 +36,7 @@ class _TogaLoginViewState extends State<TogaLoginView> {
         final l10n = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(l10n?.error_access_denied ?? "Credenciais Inválidas ou Magistrado não encontrado"),
+            content: Text(result['message'] ?? l10n?.error_access_denied ?? "Credenciais Inválidas"),
             backgroundColor: const Color(0xFFFC2D7C), // Magenta de Erro
           ),
         );

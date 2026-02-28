@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:toga_mind_plus/l10n/app_localizations.dart';
 import 'package:toga_mind_plus/features/analysis/services/toga_analysis_service.dart';
 
@@ -96,14 +97,26 @@ class _TogaChatWidgetState extends State<TogaChatWidget> {
             color: isUser ? Colors.transparent : const Color(0xFFFC2D7C).withValues(alpha: 0.3),
           ),
         ),
-        child: Text(
-          isUser ? msg["user"]! : msg["toga"]!,
-          style: TextStyle(
-            fontSize: 14,
-            color: isUser ? Colors.black87 : const Color(0xFF005B70),
-            fontWeight: isUser ? FontWeight.normal : FontWeight.w500,
-          ),
-        ),
+        child: isUser 
+          ? Text(
+              msg["user"]!,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+              ),
+            )
+          : MarkdownBody(
+              data: msg["toga"]!,
+              selectable: true,
+              styleSheet: MarkdownStyleSheet(
+                p: const TextStyle(fontSize: 14, color: Color(0xFF005B70)),
+                strong: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+                h1: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+                h2: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+                h3: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF005B70)),
+                listBullet: const TextStyle(color: Color(0xFF005B70)),
+              ),
+            ),
       ),
     );
   }
